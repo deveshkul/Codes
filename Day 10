@@ -1,0 +1,52 @@
+Insert in Sorted way in a Sorted DLL
+EasyAccuracy: 28.25%Submissions: 30K+Points: 2
+Given a sorted doubly linked list and an element X, your need to insert the element X into correct position in the sorted DLL.
+
+Note: The DLL is sorted in ascending order
+
+Example:
+
+Input:
+LinkedList:
+
+X = 9
+Output:
+
+Your Task:
+You only need to complete the function sortedInsert() that takes head reference and x as arguments and returns the head of the modified list.The resulting DLL should be in ascending order. The printing and checking tasks are done by the driver code.
+
+Expected Time Complexity: O(n).
+Expected Auxiliary Space: O(1).
+
+Constraints:
+1 <= Number of nodes <= 103
+
+
+
+
+C++ Code-
+Node* insertAtBegin(Node *head, int x) {
+    Node *node = getNode(x);
+    node->next = head;
+    head->prev = node;
+    return node;
+}
+Node* sortedInsert(Node * head, int x)
+{
+    Node *node = getNode(x);
+    if(!head) return node;
+    
+    if(head->data > x) return insertAtBegin(head, x);
+    
+    Node *curr=head, *prev=NULL;
+    while(curr && curr->data <= x) {
+        prev = curr;
+        curr = curr->next;
+    }
+    prev->next = node;
+    node->prev = prev;
+    node->next = curr;
+    if(curr) curr->prev = node;
+    
+    return head;
+};
